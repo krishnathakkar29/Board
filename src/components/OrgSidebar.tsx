@@ -21,7 +21,7 @@ const OrgSidebar = (props: Props) => {
 
   const favourites = searchParams.get("favourites");
   return (
-    <div className="hidden lg:flex flex-col space-y-6 w-[206px] pl-5 pt-5">
+    <div className="hidden lg:flex flex-col space-y-6 w-[206px]  pt-5 bg-red-500">
       <Link href="/">
         <div className="flex items-center gap-x-2">
           <Image src={logo} alt="Logo" height={60} width={60} />
