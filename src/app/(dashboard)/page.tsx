@@ -17,7 +17,7 @@ const page = async ({ searchParams }: DashboardProps) => {
     return redirect("/sign-up");
   }
 
-  const findBoards = await prisma.board.findMany({
+  const boards = await prisma.board.findMany({
     where: {
       userId: user.id,
       title: {
@@ -26,10 +26,24 @@ const page = async ({ searchParams }: DashboardProps) => {
     },
   });
 
-  console.log(findBoards);
+  const favourites = await prisma.favourite.findMany({
+    where: {
+      userId: user.id,
+    },
+    select: {
+      boardId: true,
+    },
+  });
+
+  const boardsWithFavouriteStatus = boards.map((board) => ({
+    ...board,
+    isFavourite: favourites.some((fav) => fav.boardId === board.id),
+  }));
+
+  console.log(boardsWithFavouriteStatus);
   return (
     <div className="flex-1 h-[calc(100%-80px)] p-6">
-      <BoardList query={searchParams} data={findBoards} />
+      <BoardList query={searchParams} data={boardsWithFavouriteStatus} />
     </div>
   );
 };

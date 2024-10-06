@@ -8,11 +8,21 @@ datasource db {
 }
 
 model Board {
-  id        String   @id @default(cuid())
+  id        String      @id @default(cuid())
   title     String
   userId    String
   username  String
   imageUrl  String
-  createdAt DateTime @default(now())
-  updatedAt DateTime @updatedAt
+  createdAt DateTime    @default(now())
+  updatedAt DateTime    @updatedAt
+  Favourite Favourite[]
+}
+
+model Favourite {
+  id      String @id @default(cuid())
+  boardId String
+  userId  String
+  board   Board  @relation(fields: [boardId], references: [id], onDelete: Cascade)
+
+  @@unique([userId, boardId])
 }

@@ -12,7 +12,7 @@ type Props = {
     search?: string;
     favourites?: string;
   };
-  data: Board[];
+  data: (Board & { isFavourite: boolean })[];
 };
 
 const BoardList = ({ query, data }: Props) => {
@@ -62,7 +62,7 @@ const BoardList = ({ query, data }: Props) => {
             userId={item.userId}
             createdAt={item.createdAt}
             updatedAt={item.updatedAt}
-            isFavourite={false}
+            isFavourite={item.isFavourite}
           />
         ))}
       </div>
