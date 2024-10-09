@@ -1,11 +1,20 @@
-import React from 'react'
+import Canvas from "@/components/Canvas/Canvas";
+import { Loading } from "@/components/Canvas/loading";
+import Room from "@/components/Room";
+import React from "react";
 
-type Props = {}
-
-const page = (props: Props) => {
-  return (
-    <div>page</div>
-  )
+interface BoardIdPageProps {
+  params: {
+    boardId: string;
+  };
 }
 
-export default page
+const page = ({ params }: BoardIdPageProps) => {
+  return (
+    <Room roomId={params.boardId} fallback={<Loading />}>
+      <Canvas boardId={params.boardId} />;
+    </Room>
+  );
+};
+
+export default page;
