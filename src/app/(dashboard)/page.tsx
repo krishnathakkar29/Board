@@ -22,6 +22,7 @@ const page = async ({ searchParams }: DashboardProps) => {
       userId: user.id,
       title: {
         contains: searchParams.search || "",
+        mode: "insensitive",
       },
     },
   });
@@ -34,7 +35,7 @@ const page = async ({ searchParams }: DashboardProps) => {
       boardId: true,
     },
   });
-
+  
   const boardsWithFavouriteStatus = boards.map((board) => ({
     ...board,
     isFavourite: favourites.some((fav) => fav.boardId === board.id),

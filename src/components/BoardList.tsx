@@ -33,6 +33,10 @@ const BoardList = ({ query, data }: Props) => {
     );
   }
 
+  const filteredData = query.favourites
+    ? data.filter((item) => item.isFavourite)
+    : data;
+
   if (!data?.length && query.search) {
     return <EmptySearch />;
   }
@@ -52,9 +56,9 @@ const BoardList = ({ query, data }: Props) => {
       </h2>
       <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-4 lg:grid-cols-4 xl:grid-cols-5 2xl:grid-cols-6 gap-5 mt-8 pb-10">
         <NewBoardButton />
-        {data.map((item, index) => (
+        {filteredData.map((item, index) => (
           <BoardCard
-            key={index}
+            key={item.id}
             id={item.id}
             imageUrl={item.imageUrl}
             title={item.title}

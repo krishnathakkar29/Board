@@ -24,6 +24,7 @@ const NewBoardButton = ({ disabled }: Props) => {
 
       console.log("Board created successfully:", response.data);
       toast.success("Board created");
+      router.push(`boards/${response.data.id}`);
       router.refresh();
     } catch (error) {
       console.log("Error creating board:", error);
